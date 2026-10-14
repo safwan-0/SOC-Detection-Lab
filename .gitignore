@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+data/*.log
+data/ground_truth.json
+output/*
+!output/.gitkeep
+.venv/

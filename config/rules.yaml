@@ -1,0 +1,64 @@
+# Detection-as-code: tune thresholds here, no code changes needed.
+ssh_brute_force:
+  threshold: 10
+  window_seconds: 60
+  severity: high
+  mitre: "T1110.001 - Brute Force: Password Guessing"
+  response: "Block source IP at firewall, check for any successful login from it, enable fail2ban / key-only SSH."
+
+password_spraying:
+  threshold: 6            # distinct usernames tried by one IP
+  window_seconds: 600
+  severity: high
+  mitre: "T1110.003 - Brute Force: Password Spraying"
+  response: "Block source IP, review targeted accounts, enforce MFA and account lockout policy."
+
+brute_force_success:
+  threshold: 5            # failures for the same user+IP before a success
+  window_seconds: 600
+  severity: critical
+  mitre: "T1078 - Valid Accounts"
+  response: "Treat account as compromised: disable it, kill sessions, reset credentials, hunt for post-login activity."
+
+sudo_denied:
+  threshold: 3
+  window_seconds: 300
+  severity: medium
+  mitre: "T1548.003 - Abuse Elevation Control: Sudo"
+  response: "Contact the user, review what they ran, confirm whether the session is legitimate."
+
+root_shell:
+  shells: ["/bin/bash", "/bin/sh", "/bin/zsh", "/usr/bin/su"]
+  severity: medium
+  mitre: "T1548.003 - Abuse Elevation Control: Sudo"
+  response: "Verify it was an authorised admin action; review commands run in the root shell."
+
+sudo_group_add:
+  severity: high
+  mitre: "T1098 - Account Manipulation"
+  response: "Confirm a change ticket exists; if not, revert group membership and investigate who made the change."
+
+new_uid0_account:
+  severity: critical
+  mitre: "T1136.001 - Create Account: Local Account"
+  response: "UID 0 means a root-equivalent backdoor. Disable the account immediately and start incident response."
+
+port_scan:
+  threshold: 15           # distinct destination ports
+  window_seconds: 30
+  severity: medium
+  mitre: "T1046 - Network Service Discovery"
+  response: "Block or rate-limit source IP, check whether any probed port was open, watch for follow-up attacks."
+
+web_scan_404:
+  threshold: 20
+  window_seconds: 60
+  severity: medium
+  mitre: "T1595.003 - Active Scanning: Wordlist Scanning"
+  response: "Block source IP at WAF, check whether any probed path returned 200."
+
+scanner_user_agent:
+  agents: ["sqlmap", "nikto", "gobuster", "dirbuster", "wfuzz", "masscan", "nmap"]
+  severity: medium
+  mitre: "T1595.002 - Active Scanning: Vulnerability Scanning"
+  response: "Block source IP at WAF; scanner tools are rarely used by legitimate users."

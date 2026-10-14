@@ -1,0 +1,22 @@
+name: detection-ci
+on: [push, pull_request]
+
+jobs:
+  test-and-detect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Unit + end-to-end detection tests
+        run: pytest -q
+      - name: Run the pipeline
+        run: |
+          python src/generate_logs.py --out data
+          python src/detect.py --logs data --out output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: soc-report
+          path: output/
