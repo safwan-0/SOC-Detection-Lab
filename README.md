@@ -38,6 +38,10 @@ generate_logs.py ──► data/auth.log, access.log, firewall.log + ground_trut
 | Directory brute force | access.log | `web_scan_404` | T1595.003 |
 | Scanner user-agent (gobuster) | access.log | `scanner_user_agent` | T1595.002 |
 
+## Demo 
+
+See a full example report: [docs/sample_report.md](docs/sample_report.md)
+
 ## Quick start
 
 ![Detection output](docs/screenshots/terminal-output.png)
