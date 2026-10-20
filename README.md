@@ -44,7 +44,6 @@ See a full example report: [docs/sample_report.md](docs/sample_report.md)
 
 ## Quick start
 
-![Detection output](docs/screenshots/terminal-output.png)
 
 ```bash
 pip install -r requirements.txt
