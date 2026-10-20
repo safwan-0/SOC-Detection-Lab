@@ -40,6 +40,8 @@ generate_logs.py ──► data/auth.log, access.log, firewall.log + ground_trut
 
 ## Quick start
 
+![Detection output](docs/screenshots/terminal-output.png)
+
 ```bash
 pip install -r requirements.txt
 python src/generate_logs.py --out data      # create synthetic logs
