@@ -1,173 +1,179 @@
-# SOC Detection Lab Using Elastic Stack
+# SOC Detection Lab — Investigation Report
 
-A beginner-friendly Security Operations Center (SOC) detection lab built using Elasticsearch and Kibana.
+## 1. Project Overview
 
-This project demonstrates how security analysts can collect, analyze, and investigate simulated security events using SIEM tools.
+This investigation report documents the analysis of simulated security events using Elasticsearch and Kibana.
 
-## Project Objectives
+The objective was to investigate suspicious activities, identify potential security threats, and understand basic SOC analyst investigation workflows.
 
-- Generate simulated security logs.
-- Ingest logs into Elasticsearch.
-- Analyze security events using Kibana.
-- Investigate suspicious authentication activities.
-- Identify potential privilege escalation.
-- Investigate repeated network connection attempts.
-- Document findings through SOC investigation reports.
-
-## Tools & Technologies
-
-- Ubuntu Linux
-- Docker
+**Tools Used:**
 - Elasticsearch 7.17.0
 - Kibana 7.17.0
-- Python 3
+- Docker
+- Ubuntu Linux
 - Kibana Query Language (KQL)
 
-## Project Architecture
+**Total Events Analyzed:** 30
+
+---
+
+## 2. Detection 1: Brute-Force Login Attempts
+
+**Objective:** Identify repeated failed authentication attempts from a single source IP.
+
+**Observed Data:**
+- Source IP: `192.168.1.50`
+- Target Username: `admin`
+- Failed Login Attempts: 6
+- Subsequent Event: Successful Login
+
+**KQL Query:**
 
 ```text
-Simulated Security Logs
-          |
-          v
-       auth.log
-          |
-          v
-     Python Parser
-          |
-          v
-       bulk.json
-          |
-          v
-    Elasticsearch
-          |
-          v
-        Kibana
-          |
-          v
-  Security Investigation
-          |
-          v
-   Investigation Report
+event_type : "login_failed" and source_ip : "192.168.1.50"
 ```
 
-## Detection Scenarios
+**Investigation Findings:**
 
-| No. | Detection Scenario | Investigation |
-|---|---|---|
-| 1 | Brute-force attempts | Repeated failed login attempts |
-| 2 | Suspicious successful login | Successful login following multiple failed attempts |
-| 3 | Privilege escalation | Suspicious privilege-related events |
-| 4 | Suspicious network activity | Repeated network connection attempts |
+Multiple failed login attempts were observed from the same source IP within a short time period. A successful login was recorded afterward.
 
-## Repository Structure
+**Assessment:** High-priority suspicious authentication activity.
 
-```text
-soc-detection-lab/
-│
-├── logs/
-│   ├── auth.log
-│   └── bulk.json
-│
-├── detections/
-│   └── detection-queries.md
-│
-├── screenshots/
-│   ├── login-failed.png
-│   ├── brute-force.png
-│   ├── privilege-escalation.png
-│   └── network-activity.png
-│
-├── reports/
-│   └── investigation-report.md
-│
-├── .gitignore
-└── README.md
-```
+**Recommended Actions:**
+- Review the successful login session.
+- Verify the account owner's activity.
+- Investigate additional authentication records.
+- Consider appropriate account protection measures if unauthorized access is confirmed.
 
-## Investigation Screenshots
+---
 
-### 1. Authentication Log Analysis
+## 3. Detection 2: Suspicious Successful Login
 
-![Login Failed Events](screenshots/login-failed.png)
+**Objective:** Investigate successful authentication following multiple failed login attempts.
 
-### 2. Brute-Force Detection
+**Observed Data:**
+- Source IP: `192.168.1.50`
+- Target Username: `admin`
+- Previous Activity: Multiple failed login attempts
+- Final Event: Successful Login
 
-![Brute Force Detection](screenshots/brute-force.png)
-
-### 3. Privilege Escalation Analysis
-
-![Privilege Escalation](screenshots/privilege-escalation.png)
-
-### 4. Suspicious Network Activity
-
-![Network Activity](screenshots/network-activity.png)
-
-## How It Works
-
-1. Generate simulated security events.
-2. Parse the logs into JSON format using Python.
-3. Ingest the events into Elasticsearch using the Bulk API.
-4. Create a Kibana Data View.
-5. Investigate events using Kibana Discover and KQL.
-6. Document suspicious activities in an investigation report.
-
-## Sample Detection Queries
-
-### Failed Login Attempts
-
-```text
-event_type : "login_failed"
-```
-
-### Privilege Escalation
-
-```text
-event_type : "privilege_escalation"
-```
-
-### Suspicious Successful Login
+**KQL Query:**
 
 ```text
 event_type : "login_success" and source_ip : "192.168.1.50"
 ```
 
-### Repeated Network Connection Attempts
+**Investigation Findings:**
+
+A successful login was observed from an IP address that had previously generated multiple failed authentication events.
+
+**Assessment:** Potential account compromise requiring further investigation.
+
+**Recommended Actions:**
+- Review the login timeline.
+- Verify whether the login was authorized.
+- Examine subsequent account activity.
+- Review session and authentication records.
+
+---
+
+## 4. Detection 3: Privilege Escalation Activity
+
+**Objective:** Identify suspicious privilege-related activities.
+
+**Observed Data:**
+- Username: `developer`
+- Source IP: `192.168.1.25`
+- Events: Privilege Escalation and Sudo Command
+- Additional Activity: Permission Change
+
+**KQL Queries:**
+
+```text
+event_type : "privilege_escalation"
+```
+
+Additional investigation:
+
+```text
+event_type : "sudo_command" or event_type : "permission_change"
+```
+
+**Investigation Findings:**
+
+Multiple privilege-related events were observed for the developer account.
+
+These events require investigation to determine whether the activity was authorized.
+
+**Assessment:** Potential privilege misuse.
+
+**Recommended Actions:**
+- Verify the user's authorization.
+- Review privilege changes.
+- Investigate relevant system audit logs.
+- Examine the account's recent activity.
+
+---
+
+## 5. Detection 4: Suspicious Network Connection Attempts
+
+**Objective:** Investigate repeated connection attempts from a single source IP.
+
+**Observed Data:**
+- Source IP: `192.168.1.90`
+- Destination Port: `22`
+- Connection Attempts: 5
+
+**KQL Query:**
 
 ```text
 event_type : "connection_attempt" and source_ip : "192.168.1.90"
 ```
 
-## Investigation Reports
+**Investigation Findings:**
 
-Detailed investigation findings are documented in:
+Multiple connection attempts targeting port 22 (SSH) were recorded from the same source IP within a short period.
 
-`reports/investigation-report.md`
+**Assessment:** Repeated network connection activity requiring further investigation.
 
-Detection queries are documented in:
-
-`detections/detection-queries.md`
-
-## Project Limitations
-
-- All security events are simulated.
-- Detection currently relies on manual Kibana queries.
-- Automated alerting and incident response are not implemented.
-- Findings require additional evidence before being classified as confirmed security incidents.
-
-## Future Improvements
-
-- Add more realistic security log sources.
-- Create automated detection rules.
-- Build a Kibana security dashboard.
-- Add alerting and notification capabilities.
-- Integrate Python-based detection automation.
-
-## Disclaimer
-
-This project is created for educational and cybersecurity learning purposes. All logs are simulated and do not represent real attacks or real security incidents.
+**Recommended Actions:**
+- Review connection frequency.
+- Investigate the source IP.
+- Examine additional network traffic records.
+- Determine whether the activity matches expected network behavior.
 
 ---
 
-**Project:** SOC Detection Lab  
-**SIEM:** Elastic Stack  
-**Focus:** Blue Team | SOC Analysis | Log Investigation
+## 6. Overall Investigation Summary
+
+| Detection Scenario | Observed Activity | Assessment |
+|---|---|---|
+| Brute-force Attempts | 6 failed logins followed by success | High-priority suspicious activity |
+| Suspicious Login | Successful login after repeated failures | Potential account compromise |
+| Privilege Escalation | Multiple privilege-related events | Potential privilege misuse |
+| Network Activity | 5 SSH connection attempts | Suspicious activity requiring review |
+
+---
+
+## 7. Investigation Limitations
+
+- All security events were simulated.
+- The investigation used manually generated sample logs.
+- No real production systems were monitored.
+- Detection was performed using Kibana Discover and KQL queries.
+- Automated alerting and incident response were not implemented.
+- The available logs do not independently establish that an actual attack occurred.
+
+---
+
+## 8. Conclusion
+
+This project demonstrates a basic SOC investigation workflow using the Elastic Stack.
+
+Through simulated security events, four security scenarios were investigated, including repeated failed logins, suspicious successful authentication, privilege-related activity, and repeated network connection attempts.
+
+The project provided practical experience with log ingestion, SIEM-based investigation, KQL queries, and security incident documentation.
+
+**Project Status:** Initial Detection Lab Completed
+
+**Future Scope:** Automated detection rules, Kibana dashboards, alerting, and Python-based security automation.
