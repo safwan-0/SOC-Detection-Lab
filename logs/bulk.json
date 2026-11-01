@@ -1,0 +1,60 @@
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:00:01Z", "host": "web-server-01", "event_type": "login_failed", "username": "admin", "source_ip": "192.168.1.50"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:00:03Z", "host": "web-server-01", "event_type": "login_failed", "username": "admin", "source_ip": "192.168.1.50"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:00:05Z", "host": "web-server-01", "event_type": "login_failed", "username": "admin", "source_ip": "192.168.1.50"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:00:07Z", "host": "web-server-01", "event_type": "login_failed", "username": "admin", "source_ip": "192.168.1.50"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:00:09Z", "host": "web-server-01", "event_type": "login_failed", "username": "admin", "source_ip": "192.168.1.50"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:00:12Z", "host": "web-server-01", "event_type": "login_failed", "username": "admin", "source_ip": "192.168.1.50"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:01:00Z", "host": "web-server-01", "event_type": "login_success", "username": "admin", "source_ip": "192.168.1.50"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:05:00Z", "host": "web-server-01", "event_type": "login_failed", "username": "test", "source_ip": "192.168.1.80"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:05:05Z", "host": "web-server-01", "event_type": "login_failed", "username": "test", "source_ip": "192.168.1.80"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:05:10Z", "host": "web-server-01", "event_type": "login_success", "username": "test", "source_ip": "192.168.1.80"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:06:00Z", "host": "web-server-01", "event_type": "login_success", "username": "developer", "source_ip": "192.168.1.25"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:06:30Z", "host": "web-server-01", "event_type": "login_success", "username": "analyst", "source_ip": "192.168.1.30"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:10:00Z", "host": "web-server-01", "event_type": "privilege_escalation", "username": "developer", "source_ip": "192.168.1.25"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:10:05Z", "host": "web-server-01", "event_type": "privilege_escalation", "username": "developer", "source_ip": "192.168.1.25"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:11:00Z", "host": "web-server-01", "event_type": "sudo_command", "username": "developer", "source_ip": "192.168.1.25"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:12:00Z", "host": "web-server-01", "event_type": "permission_change", "username": "admin", "source_ip": "192.168.1.10"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:13:00Z", "host": "web-server-01", "event_type": "login_success", "username": "admin", "source_ip": "192.168.1.10"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:15:00Z", "host": "web-server-01", "event_type": "connection_attempt", "destination_port": 22}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:15:01Z", "host": "web-server-01", "event_type": "connection_attempt", "destination_port": 22}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:15:02Z", "host": "web-server-01", "event_type": "connection_attempt", "destination_port": 22}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:15:03Z", "host": "web-server-01", "event_type": "connection_attempt", "destination_port": 22}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:15:04Z", "host": "web-server-01", "event_type": "connection_attempt", "destination_port": 22}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:16:00Z", "host": "web-server-01", "event_type": "connection_attempt", "destination_port": 443}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:16:05Z", "host": "web-server-01", "event_type": "connection_attempt", "destination_port": 80}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:20:00Z", "host": "web-server-01", "event_type": "login_failed", "username": "root", "source_ip": "192.168.1.70"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:21:00Z", "host": "web-server-01", "event_type": "login_success", "username": "developer", "source_ip": "192.168.1.25"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:22:00Z", "host": "web-server-01", "event_type": "file_access", "username": "developer", "source_ip": "192.168.1.25"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:23:00Z", "host": "web-server-01", "event_type": "permission_change", "username": "developer", "source_ip": "192.168.1.25"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:24:00Z", "host": "web-server-01", "event_type": "login_failed", "username": "guest", "source_ip": "192.168.1.60"}
+{"index": {"_index": "soc-auth-logs"}}
+{"@timestamp": "2026-10-24T10:25:00Z", "host": "web-server-01", "event_type": "login_success", "username": "analyst", "source_ip": "192.168.1.30"}
